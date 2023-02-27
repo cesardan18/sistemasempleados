@@ -1,0 +1,64 @@
+{% include 'header.html' %}
+{% for empleado in empleados %}
+
+<style>
+    .btn:hover{
+        animation: btn-animate 0.5s;
+    }
+
+    @keyframes btn-animate{
+        0%{
+            scale: 1;
+        }
+        50%{
+            scale: 1.1;
+        }
+        100%{
+            scale: 1;
+        }
+    }
+</style>
+
+<br><br>
+<form method="post" action="/update" enctype="multipart/form-data">
+
+    <div class="card mb-5">
+        <div class="card-header">
+            Editar empleado
+        </div>
+        <div class="card-body">
+            <h5 class="card-title text-uppercase font-weight-bold">Datos del Empleado</h5>
+            <p class="card-text">
+
+                <div class="form-group">
+                    <label for="txtNombre">Nombre</label>
+                    <input id="txtNombre" value="{{ empleado[1] }}" class="form-control" type="text" name="txtNombre">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtCorreo">Correo</label>
+                    <input id="txtCorreo" value="{{ empleado[2] }}" class="form-control" type="text" name="txtCorreo">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtFoto">Foto:</label>
+                    <img class="img-thumbnail" width="100" src="{{ url_for('uploads', nombreFoto=empleado[3]) }}" alt="">
+                    <input id="txtFoto" class="form-control" type="file" name="txtFoto">
+                </div>
+
+
+                <input type="hidden" value="{{ empleado[0] }}" name="txtID" id="txtID">
+                <br>
+
+                <div class="form-group">
+                    <input type="submit"  class="btn btn-success font-weight-bold" value="Modificar">
+                    <a href="{{url_for('index')}}" class="btn btn-primary font-weight-bold">Regresar</a>
+                </div>
+
+            </p>
+        </div>
+    </div>
+</form>
+
+{% endfor %}
+{% include 'footer.html' %}

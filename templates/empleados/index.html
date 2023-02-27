@@ -1,0 +1,68 @@
+
+{% include 'header.html' %}
+
+<!-- ANIMACIÓN PARA BOTONES -->
+<style>
+    .btn:hover{
+        animation: btn-animate 0.5s;
+    }
+
+    @keyframes btn-animate{
+        0%{
+            scale: 1;
+        }
+        50%{
+            scale: 1.1;
+        }
+        100%{
+            scale: 1;
+        }
+    }
+</style>
+
+<br>
+<a href="{{url_for('create')}}" class="btn btn-success font-weight-bold">
+    Ingresar nuevo empleado
+</a>
+<br>
+<br>
+
+<!-- TABALA RESPONSIVA -->
+<main role="main" class="container p-0 mb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-light table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Foto</th>
+                            <th>Nombres</th>
+                            <th>Correo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empleado in empleados %}
+                        <tr>
+                            <td>{{empleado[0] }}</td>
+                            <td>
+                                <img class="img-thumbnail" width="100" src="uploads/{{empleado[3] }}" alt="">
+                            </td>
+            
+                            <td>{{empleado[1] }}</td>
+                            <td>{{empleado[2] }}</td>
+                            <td> <a class="btn btn-warning text-light font-weight-bold" href="/edit/{{empleado[0]}}">Editar</a>
+                                <a onclick="return confirm('¿Desea borrar al empleado')" class="btn btn-danger font-weight-bold" href="/destroy/{{empleado[0]}}">Eliminar</a>
+                            </td>   
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!---->
+
+{% include 'footer.html' %}
